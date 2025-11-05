@@ -14,7 +14,8 @@ pipeline {
         
         stage('Build the Artifacts using Maven') {
             steps {
-                sh 'mvn clean package'
+                sh 'stdbuf -oL mvn clean package -B -Dstyle.color=always'
+
             }
         }
     }
