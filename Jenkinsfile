@@ -28,17 +28,19 @@ pipeline {
                 sh 'docker build -t wikiprospects/dockercicd:${buildNumber} .'
             }
         }
-        stage('push Doker Image to DockerHub Registry')
-        {
-            steps()
-            {
-                withCredentials([string(credentialsId: 'Docker_Hub_Password', variable: 'Docker_Hub_Password')]) {
-                {
-                    sh 'docker login -u mithuntechnology -p $(Docker/-Hub_Password)'
-                }  
-                sh 'docker push wikiprospects/dockercicd:${buildNumber}'
-    
-}
+
+        stage('Push Docker Image to DockerHub Registry') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds', 
+                    usernameVariable: 'DOCKER_USER', 
+                    passwordVariable: 'DOCKER_PASS')]) {
+
+                    // Login to Docker Hub
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+
+                    // Push Docker image
+                    sh 'docker push wikiprospects/dockercicd:${buildNumber}'
                 }
             }
         }
