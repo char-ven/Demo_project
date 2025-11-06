@@ -41,23 +41,21 @@ pipeline {
                 }
             }
         }
-        stage('Remove Docker image Locally in jenkins server')
-        {
-            steps()
-            {
-                sh 'docker rmi wikiprospectscharan/dockercicd:${buildNumber}'
-                
-            }
-            stage('Deploy Application to Docker Server')
-            {
-                steps()
-                {
-                    sshagent(['Deployment Server']) 
-                    {
-                        sh "ssh -0 StrictHostKeyChecking=no ubuntu@13.126.191.164 docker rm -f mavenwebapplication || true "
-                        sh " sh -0 StrictHostKeyChecking=no ubuntu@13.126.191.164 docker run -d --name mavenwebapplication -p 8080:8080 "
-                    }
 
+        stage('Remove Docker image Locally in Jenkins Server') {
+            steps {
+                sh 'docker rmi wikiprospectscharan/dockercicd:${buildNumber} || true'
+            }
+        }
+
+        stage('Deploy Application to Docker Server') {
+            steps {
+                sshagent(['Deployment Server']) {
+                    // Stop old container if running
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.126.191.164 "docker rm -f mavenwebapplication || true"'
+
+                    // Run new container with latest image
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.126.191.164 "docker run -d --name mavenwebapplication -p 8080:8080 wikiprospectscharan/dockercicd:${buildNumber}"'
                 }
             }
         }
