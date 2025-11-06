@@ -50,12 +50,12 @@ pipeline {
 
         stage('Deploy Application to Docker Server') {
             steps {
-                sshagent(['ubuntu'])  {
+                sshagent(['Deployment Server'])  {
                     // Stop old container if running
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.126.191.164 "docker rm -f mavenwebapplication || true"'
 
                     // Run new container with latest image
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.126.191.164 "docker run -d --name mavenwebapplication -p 8080:8080 wikiprospectscharan/dockercicd:${buildNumber}"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.126.191.164 "docker run -d --name mavenwebapplication -p 8080:8080 "'
                 }
             }
         }
