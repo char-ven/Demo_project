@@ -1,4 +1,2 @@
-FROM openjdk:17-jdk-slim
-WORKDIR /app
-COPY target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM tomcat:9.0-jdk11
+COPY target/maven-web-application.war /usr/local/tomcat/webapps/maven-web-application.war
