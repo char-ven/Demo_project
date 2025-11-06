@@ -9,7 +9,7 @@
     <artifactId>maven-web-application</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging> <!-- WAR packaging for Tomcat -->
-
+    <packaging>jar</packaging>
     <name>Maven Web Application</name>
     <description>A Maven web project for Jenkins CI/CD and Docker</description>
 
