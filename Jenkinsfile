@@ -50,7 +50,7 @@ pipeline {
 
         stage('Deploy Application to Docker Server') {
             steps {
-                sshagent(['Deployment Server']) {
+                sshagent(['Deployment Server'])  {
                     // Stop old container if running
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.126.191.164 "docker rm -f mavenwebapplication || true"'
 
