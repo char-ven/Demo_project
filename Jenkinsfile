@@ -41,5 +41,12 @@ pipeline {
                 }
             }
         }
+        stage('Remove Docker image Locally in jenkins server')
+        {
+            steps()
+            {
+                sh 'docker rmi 'wikiprospectscharan/dockercicd:${buildNumber}
+            }
+        }
     }
 }
