@@ -46,6 +46,7 @@ pipeline {
             steps()
             {
                 sh 'docker rmi wikiprospectscharan/dockercicd:${buildNumber}'
+                sh 'docker rmi wikiprospects/dockercicd:${buildNumber}'
             }
         }
     }
