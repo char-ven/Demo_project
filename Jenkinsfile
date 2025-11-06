@@ -26,7 +26,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t wikiprospects/dockercicd:${buildNumber} .'
+                sh 'docker build -t wikiprospectscharan/dockercicd:${buildNumber} .'
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
 
                     // Push Docker image
-                    sh 'docker push wikiprospects/dockercicd:${buildNumber}'
+                    sh 'docker push wikiprospectscharan/dockercicd:${buildNumber}'
                 }
             }
         }
