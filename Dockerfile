@@ -1,5 +1,4 @@
-HI This is charan From Wikiprospects
-I Love to have a Devops class
-{
-    Hello charan is a god boy
-}
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
