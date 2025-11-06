@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         buildNumber = "${BUILD_NUMBER}" 
-        DOCKER_USER = 'charan' // Your Docker Hub username
+        DOCKER_USER = 'wikiprospectscharan'  // Docker Hub username
     }
 
     stages {
@@ -33,9 +33,9 @@ pipeline {
         stage('Push Docker Image to DockerHub') {
             steps {
                 withCredentials([string(credentialsId: 'Docker_Hub_Password', variable: 'DOCKER_PASS')]) {
-                    // Secure Docker login using --password-stdin
+                    // Secure login using --password-stdin
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    
+
                     // Push Docker image
                     sh 'docker push wikiprospects/dockercicd:${buildNumber}'
                 }
