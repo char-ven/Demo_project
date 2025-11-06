@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         buildNumber = "${BUILD_NUMBER}" 
+        DOCKER_USER = 'charan' // Your Docker Hub username
     }
 
     stages {
@@ -17,7 +18,7 @@ pipeline {
             }
         }
         
-        stage('Build the Artifacts using Maven') {
+        stage('Build Artifacts with Maven') {
             steps {
                 sh 'stdbuf -oL mvn clean package -B -Dstyle.color=always'
             }
@@ -29,18 +30,15 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image to DockerHub Registry') 
-        {
-            steps 
-            {
-                withCredentials([string(credentialsId: 'Docker_Hub_Password', variable: 'Docker_Hub_Password')])
-                {
-                    sh 'docker login -u charan -p $Docker_Hub_Password'
-             
-                }
+        stage('Push Docker Image to DockerHub') {
+            steps {
+                withCredentials([string(credentialsId: 'Docker_Hub_Password', variable: 'DOCKER_PASS')]) {
+                    // Secure Docker login using --password-stdin
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                     
-                sh 'docker push wikiprospects/dockercicd:${buildNumber}'
-                
+                    // Push Docker image
+                    sh 'docker push wikiprospects/dockercicd:${buildNumber}'
+                }
             }
         }
     }
