@@ -48,6 +48,18 @@ pipeline {
                 sh 'docker rmi wikiprospectscharan/dockercicd:${buildNumber}'
                 
             }
+            stage('Deploy Application to Docker Server')
+            {
+                steps()
+                {
+                    sshagent(['Deployment Server']) 
+                    {
+                        sh "ssh -0 StrictHostKeyChecking=no ubuntu@13.126.191.164 docker rm -f mavenwebapplication || true "
+                        sh " sh -0 StrictHostKeyChecking=no ubuntu@13.126.191.164 docker run -d --name mavenwebapplication -p 8080:8080 "
+                    }
+
+                }
+            }
         }
     }
 }
