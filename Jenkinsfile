@@ -56,7 +56,7 @@ pipeline {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.110.117.241 "docker rm -f mavenwebapplication || true"'
 
                     // Run new container with latest image
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.110.117.241"docker run -d --name mavenwebapplication -p 8080:8080 "'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.110.117.241 "docker run -d --name mavenwebapplication -p 8080:8080 wikiprospectscharan/dockercicd:${buildNumber}"'
                 }
             }
         }
