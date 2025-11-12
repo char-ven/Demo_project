@@ -40,6 +40,7 @@ pipeline {
                     sh 'docker push wikiprospectscharan/dockercicd:${buildNumber}'
                 }
             }
+            
         }
 
         stage('Remove Docker image Locally in Jenkins Server') {
