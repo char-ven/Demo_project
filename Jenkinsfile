@@ -33,7 +33,7 @@ pipeline {
         stage('Push Docker Image to DockerHub') {
             steps {
                 withCredentials([string(credentialsId: 'Docker_Hub_Password', variable: 'DOCKER_PASS')]) {
-                    // Secure login using --password-stdin to login password
+                    // Secure login using --password-stdin to login password for the git Hub
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
 
                     // Push Docker image in Docker Hub and Jenkins File
@@ -52,7 +52,7 @@ pipeline {
             steps {
                 sshagent(['ubuntu']) {
 
-                    // Stop old container if running
+                    // Stop old container if running the docker Hub
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.110.117.241 "docker rm -f mavenwebapplication || true"'
 
                     // Run new container with latest image
