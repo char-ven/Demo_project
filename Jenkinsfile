@@ -55,7 +55,7 @@ pipeline {
                     // Stop old container if running the docker Hub
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@43.204.236.100 "docker rm -f mavenwebapplication || true"'
 
-                    // Run new container with latest image
+                    // Run new container with latest images
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@43.204.236.100 "docker run -d --name mavenwebapplication -p 8080:8080 wikiprospectscharan/dockercicd:${buildNumber}"'
                 }
             }
