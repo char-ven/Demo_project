@@ -33,10 +33,10 @@ pipeline {
         stage('Push Docker Image to DockerHub') {
             steps {
                 withCredentials([string(credentialsId: 'Docker_Hub_Password', variable: 'DOCKER_PASS')]) {
-                    // Secure login using --password-stdin
+                    // Secure login using --password-stdin to login password
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
 
-                    // Push Docker image
+                    // Push Docker image in Docker Hub and Jenkins File
                     sh 'docker push wikiprospectscharan/dockercicd:${buildNumber}'
                 }
             }
