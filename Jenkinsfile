@@ -53,10 +53,10 @@ pipeline {
                 sshagent(['ubuntu']) {
 
                     // Stop old container if running the docker Hub
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.234.66.46 "docker rm -f mavenwebapplication || true"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@65.0.110.159 "docker rm -f mavenwebapplication || true"'
 
                     // Run new container with latest images
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.234.66.46 "docker run -d --name mavenwebapplication -p 8080:8080 wikiprospectscharan/dockercicd:${buildNumber}"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@65.0.110.159 "docker run -d --name mavenwebapplication -p 8080:8080 wikiprospectscharan/dockercicd:${buildNumber}"'
                 }
             }
         }
